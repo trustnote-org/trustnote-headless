@@ -16,14 +16,14 @@
     "type": "git"
   },
   "bugs": {
-    "url": "https://gihub.com/trustnote/headless/issues"
+    "url": "https://github.com/trustnote/headless/issues"
   },
   "browser": {
     "request": "browser-request",
     "secp256k1": "secp256k1/js"
   },
   "dependencies": {
-    "trustnote-common": "git+ssh://git@gihub.com/trustnote/common.git",
+    "trustnote-common": "git+https://github.com/trustnote/trustnote-common.git",
     "bitcore-lib": "^0.13.14",
     "bitcore-mnemonic": "~1.0.0",
     "json-rpc2": "^1.0.2"
