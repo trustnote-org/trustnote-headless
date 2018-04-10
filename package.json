@@ -1,5 +1,5 @@
 {
-  "name": "headless",
+  "name": "trustnote-headless",
   "description": "TrustNote headless wallet",
   "author": "TrustNote",
   "version": "0.1.0",
@@ -12,11 +12,11 @@
   ],
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/trustnote/headless.git",
+    "url": "https://github.com/trustnote/trustnote-headless.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/trustnote/headless/issues"
+    "url": "https://github.com/trustnote/trustnote-headless/issues"
   },
   "browser": {
     "request": "browser-request",
