@@ -16,7 +16,7 @@
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/trustnote/headless/issues"
+    "url": "https://github.com/trustnote/trustnote-headless/issues"
   },
   "browser": {
     "request": "browser-request",
