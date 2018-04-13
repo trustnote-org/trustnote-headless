@@ -78,16 +78,16 @@ function initRPC() {
 			walletDefinedByKeys.readAllAddressesAndIndex(wallet_id, function(addressList) {
 				unlock();
 				if(address) {
+					var is_exist = false;
 					for (var i in addressList) {
 					    if (addressList[i].indexOf(address) > 0) {
-							cb(null, addressList[i]);
+						cb(null, addressList[i]);
+						is_exist = true;
 						break;
 					    }
-					    else {
-							cb("unknow address");
-							break;
-					    }
 					}
+					if(!is_exist)
+						cb("unknow address");
 				}
 				else {
 					cb(null, addressList);
