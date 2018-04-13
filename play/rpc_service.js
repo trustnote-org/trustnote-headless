@@ -71,12 +71,48 @@ function initRPC() {
 	 * @return [String] address
 	 */
 	server.expose('getalladdress', function(args, opt, cb) {
+		if(args.length > 0) {
+			var address = args[0];
+		}
 		mutex.lock(['rpc_getalladdress'], function(unlock){
 			walletDefinedByKeys.readAllAddressesAndIndex(wallet_id, function(addressList) {
 				unlock();
-				cb(null, addressList);
+				if(address) {
+					for (var i in addressList) {
+					    if (addressList[i].indexOf(address) > 0) {
+							cb(null, addressList[i]);
+						break;
+					    }
+					    else {
+							cb("unknow address");
+							break;
+					    }
+					}
+				}
+				else {
+					cb(null, addressList);
+				}
 			});
 		});
+	});
+
+	/**
+	 * check address is valid.
+	 * @return [string] msg
+	 */
+	server.expose('checkAddress', function(args, opt, cb) {
+		var address = args[0];
+		if(address) {
+			if(validationUtils.isValidAddress(address)) {
+				cb(null, "ok");
+			}
+			else {
+				cb("invalid address");
+			}
+		}
+		else {
+			cb("invalid address");
+		}
 	});
 
 	/**
