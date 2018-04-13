@@ -65,6 +65,19 @@ function initRPC() {
 			});
 		});
 	});
+	
+	/**
+	 * get all wallet address.
+	 * @return [String] address
+	 */
+	server.expose('getalladdress', function(args, opt, cb) {
+		mutex.lock(['rpc_getalladdress'], function(unlock){
+			walletDefinedByKeys.readAllAddressesAndIndex(wallet_id, function(addressList) {
+				unlock();
+				cb(null, addressList);
+			});
+		});
+	});
 
 	/**
 	 * Returns address balance(stable and pending).
