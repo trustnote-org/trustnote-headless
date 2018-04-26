@@ -23,7 +23,7 @@
     "secp256k1": "secp256k1/js"
   },
   "dependencies": {
-    "trustnote-common": "git+https://github.com/trustnote/trustnote-common.git",
+    "trustnote-common": "file:../trustnote-common",
     "bitcore-lib": "^0.13.14",
     "bitcore-mnemonic": "~1.0.0",
     "json-rpc2": "^1.0.2"
