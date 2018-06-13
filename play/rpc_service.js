@@ -129,30 +129,25 @@ function initRPC() {
 		var address = args[0];
 		if (address) {
 			if (validationUtils.isValidAddress(address))
-				db.query("SELECT COUNT(*) AS count FROM my_addresses WHERE address = ?", [address], function(rows) {
-					if (rows[0].count)
-						db.query(
-							"SELECT asset, is_stable, SUM(amount) AS balance \n\
+				db.query(
+					"SELECT asset, is_stable, SUM(amount) AS balance \n\
 							FROM outputs JOIN units USING(unit) \n\
 							WHERE is_spent=0 AND address=? AND sequence='good' AND asset IS NULL \n\
 							GROUP BY is_stable", [address],
-							function(rows) {
-								var balance = {
-									base: {
-										stable: 0,
-										pending: 0
-									}
-								};
-								for (var i = 0; i < rows.length; i++) {
-									var row = rows[i];
-									balance.base[row.is_stable ? 'stable' : 'pending'] = row.balance;
-								}
-								cb(null, balance);
+					function (rows) {
+						var balance = {
+							base: {
+								stable: 0,
+								pending: 0
 							}
-						);
-					else
-						cb("address not found");
-				});
+						};
+						for (var i = 0; i < rows.length; i++) {
+							var row = rows[i];
+							balance.base[row.is_stable ? 'stable' : 'pending'] = row.balance;
+						}
+						cb(null, balance);
+					}
+				);
 			else
 				cb("invalid address");
 		}
