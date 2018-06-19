@@ -26,7 +26,6 @@ var xPrivKey;
 
 function replaceConsoleLog(){
 	var log_filename = conf.LOG_FILENAME || (appDataDir + '/log.txt');
-	var writeStream = fs.createWriteStream(log_filename);
 	console.log('---------------');
 	console.log('From this point, output will be redirected to '+log_filename);
 	console.log("To release the terminal, type Ctrl-Z, then 'bg'");
