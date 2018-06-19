@@ -1,23 +1,28 @@
 /*jslint node: true */
 "use strict";
-var fs = require('fs');
-var crypto = require('crypto');
-var util = require('util');
-var constants = require('trustnote-common/constants.js');
-var conf = require('trustnote-common/conf.js');
-var objectHash = require('trustnote-common/object_hash.js');
-var desktopApp = require('trustnote-common/desktop_app.js');
-var db = require('trustnote-common/db.js');
-var eventBus = require('trustnote-common/event_bus.js');
-var ecdsaSig = require('trustnote-common/signature.js');
-var Mnemonic = require('bitcore-mnemonic');
-var Bitcore = require('bitcore-lib');
-var readline = require('readline');
 
-var appDataDir = desktopApp.getAppDataDir();
-var KEYS_FILENAME = appDataDir + '/' + (conf.KEYS_FILENAME || 'keys.json');
+var fs			= require( 'fs' );
+var crypto		= require( 'crypto' );
+var util		= require( 'util' );
+var Mnemonic		= require( 'bitcore-mnemonic' );
+var Bitcore		= require( 'bitcore-lib' );
+var readline		= require( 'readline' );
+
+var constants		= require( 'trustnote-common/constants.js' );
+var conf		= require( 'trustnote-common/conf.js' );
+var objectHash		= require( 'trustnote-common/object_hash.js' );
+var desktopApp		= require( 'trustnote-common/desktop_app.js' );
+var db			= require( 'trustnote-common/db.js' );
+var eventBus		= require( 'trustnote-common/event_bus.js' );
+var ecdsaSig		= require( 'trustnote-common/signature.js' );
+var _log_ex		= require( 'trustnote-common/logex.js' );
+
+var appDataDir		= desktopApp.getAppDataDir();
+var KEYS_FILENAME	= appDataDir + '/' + (conf.KEYS_FILENAME || 'keys.json');
 var wallet_id;
 var xPrivKey;
+
+
 
 function replaceConsoleLog(){
 	var log_filename = conf.LOG_FILENAME || (appDataDir + '/log.txt');
@@ -26,8 +31,9 @@ function replaceConsoleLog(){
 	console.log('From this point, output will be redirected to '+log_filename);
 	console.log("To release the terminal, type Ctrl-Z, then 'bg'");
 	console.log = function(){
-		writeStream.write(Date().toString()+': ');
-		writeStream.write(util.format.apply(null, arguments) + '\n');
+		_log_ex.push.apply( this, arguments );
+		//writeStream.write(Date().toString()+': ');
+		//writeStream.write(util.format.apply(null, arguments) + '\n');
 	};
 	console.warn = console.log;
 	console.info = console.log;
