@@ -219,6 +219,9 @@ function initRPC() {
 		var amount = args[1];
 		var toAddress = args[0];
 		if (amount && toAddress) {
+			if(amount <= 0) {
+				cb("amount must be positive");
+			}
 			if (validationUtils.isValidAddress(toAddress))
 				headlessWallet.issueChangeAddressAndSendPayment(null, amount, toAddress, null, function(err, unit) {
 					cb(err, err ? undefined : unit);
