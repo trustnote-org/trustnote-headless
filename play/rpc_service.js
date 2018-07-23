@@ -219,7 +219,7 @@ function initRPC() {
 		var amount = args[1];
 		var toAddress = args[0];
 		if (amount && toAddress) {
-			if(amount <= 0) {
+			if(typeof amount != "number" || amount <= 0) {
 				cb("amount must be positive");
 			}
 			if (validationUtils.isValidAddress(toAddress))
